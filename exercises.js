@@ -18,16 +18,25 @@
 //   .reverse, .filter, .map, .includes, .sort, .repeat or Math.max.
 // =====================================================================
 
-
 // ---------------------------------------------------------------------
 // Exercise 1: sumOfEvens
 // Return the sum of all even numbers in the array.
 // An empty array gives 0.
 //   sumOfEvens([1, 2, 3, 4]) -> 6
 // ---------------------------------------------------------------------
-function sumOfEvens(numbers) {
-}
 
+function sumOfEvens(numbers) {
+    let sum = 0;
+    for (let i = 0; i < numbers.length; i++) {
+        const actualNumber = numbers[i];
+        if (actualNumber % 2 === 0) {
+            sum += actualNumber;
+        } else {
+            continue;
+        }
+    }
+    return sum;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 2: dayName
@@ -37,8 +46,36 @@ function sumOfEvens(numbers) {
 //   dayName(3) -> "Wednesday"
 // ---------------------------------------------------------------------
 function dayName(dayNumber) {
+    if (!typeof dayNumber === 'number') {
+        return 'please enter a number!';
+    }
+    switch (dayNumber) {
+        case 1:
+            return 'Monday';
+            break;
+        case 2:
+            return 'Tuesday';
+            break;
+        case 3:
+            return 'Wednesday';
+            break;
+        case 4:
+            return 'Thursday';
+            break;
+        case 5:
+            return 'Friday';
+            break;
+        case 6:
+            return 'Saturday';
+            break;
+        case 7:
+            return 'Sunday';
+            break;
+        default:
+            return 'Invalid';
+            break;
+    }
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 3: countVowels
@@ -48,8 +85,29 @@ function dayName(dayNumber) {
 //   countVowels("Hello World") -> 3
 // ---------------------------------------------------------------------
 function countVowels(text) {
+    let letterCount = 0;
+    for (let i = 0; i < text.length; i++) {
+        const actualLetter = text[i].toUpperCase();
+        switch (actualLetter) {
+            case 'A':
+                letterCount++;
+                break;
+            case 'E':
+                letterCount++;
+                break;
+            case 'I':
+                letterCount++;
+                break;
+            case 'O':
+                letterCount++;
+                break;
+            case 'U':
+                letterCount++;
+                break;
+        }
+    }
+    return letterCount;
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 4: fizzBuzz
@@ -59,8 +117,21 @@ function countVowels(text) {
 //   fizzBuzz(5) -> "1, 2, Fizz, 4, Buzz"
 // ---------------------------------------------------------------------
 function fizzBuzz(n) {
+    const count = [];
+    for (let i = 1; i <= n; i++) {
+        const actualNumberChecked = i;
+        if (actualNumberChecked % 3 === 0 && actualNumberChecked % 5 === 0) {
+            count.push('FizzBuzz');
+        } else if (actualNumberChecked % 3 === 0) {
+            count.push('Fizz');
+        } else if (actualNumberChecked % 5 === 0) {
+            count.push('Buzz');
+        } else {
+            count.push(actualNumberChecked);
+        }
+    }
+    return count.join(', ');
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 5: isPalindrome
@@ -70,8 +141,19 @@ function fizzBuzz(n) {
 //   isPalindrome("level") -> true
 // ---------------------------------------------------------------------
 function isPalindrome(word) {
-}
+    let left = 0;
+    let right = word.length - 1;
 
+    while (left < right) {
+        if (word[left] !== word[right]) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+
+    return true;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 6: buildTriangle
@@ -83,8 +165,17 @@ function isPalindrome(word) {
 //             ***
 // ---------------------------------------------------------------------
 function buildTriangle(height) {
-}
+    let result = '';
 
+    for (let row = 1; row <= height; row++) {
+        result += '*'.repeat(row);
+        if (row < height) {
+            result += '\n';
+        }
+    }
+
+    return result;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 7: countWeekendDays
@@ -93,8 +184,18 @@ function buildTriangle(height) {
 //   countWeekendDays([1, 6, 7, 3]) -> 2
 // ---------------------------------------------------------------------
 function countWeekendDays(dayNumbers) {
+    let weekendDays = 0;
+    for (let i = 0; i < dayNumbers.length; i++) {
+        const actualDayNumber = dayNumbers[i];
+        if (
+            dayName(actualDayNumber) === 'Saturday' ||
+            dayName(actualDayNumber) === 'Sunday'
+        ) {
+            weekendDays++;
+        }
+    }
+    return weekendDays;
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 8: pointsToGrade
@@ -103,8 +204,18 @@ function countWeekendDays(dayNumbers) {
 //   pointsToGrade(85) -> 2
 // ---------------------------------------------------------------------
 function pointsToGrade(points) {
+    if (points >= 90) {
+        return 1;
+    } else if (points >= 80) {
+        return 2;
+    } else if (points >= 65) {
+        return 3;
+    } else if (points >= 50) {
+        return 4;
+    } else {
+        return 5;
+    }
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 9: gradeReport
@@ -115,8 +226,26 @@ function pointsToGrade(points) {
 //       5 Insufficient
 // ---------------------------------------------------------------------
 function gradeReport(student) {
+    const { name, points } = student;
+    const gradeOfStudent = pointsToGrade(points);
+    switch (gradeOfStudent) {
+        case 1:
+            return `${name}: 1 (Excellent)`;
+            break;
+        case 2:
+            return `${name}: 2 (Good)`;
+            break;
+        case 3:
+            return `${name}: 3 (Satisfactory)`;
+            break;
+        case 4:
+            return `${name}: 4 (Sufficient)`;
+            break;
+        case 5:
+            return `${name}: 5 (Insufficient)`;
+            break;
+    }
 }
-
 
 // ---------------------------------------------------------------------
 // Exercise 10: rockPaperScissors
@@ -127,8 +256,26 @@ function gradeReport(student) {
 //   rockPaperScissors("rock", "paper") -> "Player 2 wins"
 // ---------------------------------------------------------------------
 function rockPaperScissors(choice1, choice2) {
-}
+    const validChoices = ['rock', 'paper', 'scissors'];
 
+    if (!validChoices.includes(choice1) || !validChoices.includes(choice2)) {
+        return 'Invalid input';
+    }
+
+    if (choice1 === choice2) {
+        return 'Draw';
+    }
+
+    if (
+        (choice1 === 'rock' && choice2 === 'scissors') ||
+        (choice1 === 'scissors' && choice2 === 'paper') ||
+        (choice1 === 'paper' && choice2 === 'rock')
+    ) {
+        return 'Player 1 wins';
+    }
+
+    return 'Player 2 wins';
+}
 
 // ---------------------------------------------------------------------
 // Exercise 11: findOldest
@@ -136,9 +283,7 @@ function rockPaperScissors(choice1, choice2) {
 // Return the NAME of the oldest person. If two people have the same
 // highest age, return the one that comes first. Empty array gives "".
 // ---------------------------------------------------------------------
-function findOldest(people) {
-}
-
+function findOldest(people) {}
 
 // ---------------------------------------------------------------------
 // Exercise 12: namesAtLeastAge
@@ -147,9 +292,7 @@ function findOldest(people) {
 //   namesAtLeastAge([{ name: "Tom", age: 31 }, { name: "Eva", age: 12 }], 18)
 //     -> ["Tom"]
 // ---------------------------------------------------------------------
-function namesAtLeastAge(people, minAge) {
-}
-
+function namesAtLeastAge(people, minAge) {}
 
 // ---------------------------------------------------------------------
 // Exercise 13: cartTotal
@@ -158,9 +301,7 @@ function namesAtLeastAge(people, minAge) {
 // 10 or more, that item gets 10% discount.
 //   cartTotal([{ item: "Pen", price: 2, quantity: 10 }]) -> 18
 // ---------------------------------------------------------------------
-function cartTotal(cart) {
-}
-
+function cartTotal(cart) {}
 
 // ---------------------------------------------------------------------
 // Exercise 14: isPrime
@@ -168,9 +309,7 @@ function cartTotal(cart) {
 // Numbers smaller than 2 are not prime. Use a while loop.
 //   isPrime(7) -> true,  isPrime(9) -> false
 // ---------------------------------------------------------------------
-function isPrime(n) {
-}
-
+function isPrime(n) {}
 
 // ---------------------------------------------------------------------
 // Exercise 15: primesUpTo
@@ -178,9 +317,7 @@ function isPrime(n) {
 // Call your function isPrime() from exercise 14.
 //   primesUpTo(10) -> [2, 3, 5, 7]
 // ---------------------------------------------------------------------
-function primesUpTo(n) {
-}
-
+function primesUpTo(n) {}
 
 // ---------------------------------------------------------------------
 // Exercise 16: wordStatistics
@@ -192,9 +329,7 @@ function primesUpTo(n) {
 //   wordStatistics("the quick brown fox")
 //     -> { wordCount: 4, longestWord: "quick" }
 // ---------------------------------------------------------------------
-function wordStatistics(sentence) {
-}
-
+function wordStatistics(sentence) {}
 
 // =====================================================================
 // =====================================================================
@@ -206,14 +341,14 @@ let exercisesPassed = 0;
 let exercisesTotal = 0;
 
 function typeName(value) {
-    if (value === null) return "null";
-    if (Array.isArray(value)) return "array";
+    if (value === null) return 'null';
+    if (Array.isArray(value)) return 'array';
     return typeof value;
 }
 
 function isEqual(a, b) {
     if (typeName(a) !== typeName(b)) return false;
-    if (typeof a === "number") return Math.abs(a - b) < 1e-9;
+    if (typeof a === 'number') return Math.abs(a - b) < 1e-9;
     if (Array.isArray(a)) {
         if (a.length !== b.length) return false;
         for (let i = 0; i < a.length; i++) {
@@ -221,7 +356,7 @@ function isEqual(a, b) {
         }
         return true;
     }
-    if (typeof a === "object") {
+    if (typeof a === 'object') {
         const keysA = Object.keys(a);
         if (keysA.length !== Object.keys(b).length) return false;
         for (const key of keysA) {
@@ -233,12 +368,12 @@ function isEqual(a, b) {
 }
 
 function show(value) {
-    if (value === undefined) return "undefined";
+    if (value === undefined) return 'undefined';
     return JSON.stringify(value);
 }
 
 function padRight(text, width) {
-    while (text.length < width) text = text + " ";
+    while (text.length < width) text = text + ' ';
     return text;
 }
 
@@ -250,18 +385,18 @@ function testExercise(title, fn, expectedType, cases) {
 
     for (let i = 0; i < cases.length; i++) {
         const testCase = cases[i];
-        let call = fn.name + "(";
+        let call = fn.name + '(';
         for (let a = 0; a < testCase.args.length; a++) {
-            if (a > 0) call = call + ", ";
+            if (a > 0) call = call + ', ';
             call = call + show(testCase.args[a]);
         }
-        call = call + ")";
+        call = call + ')';
 
         let actual;
         try {
             actual = fn(...testCase.args);
         } catch (error) {
-            messages.push(call + " crashed: " + error.message);
+            messages.push(call + ' crashed: ' + error.message);
             continue;
         }
 
@@ -270,11 +405,24 @@ function testExercise(title, fn, expectedType, cases) {
             break;
         }
         if (typeName(actual) !== expectedType) {
-            messages.push(call + " -> wrong return type: expected " + expectedType +
-                          ", got " + typeName(actual) + " (" + show(actual) + ")");
+            messages.push(
+                call +
+                    ' -> wrong return type: expected ' +
+                    expectedType +
+                    ', got ' +
+                    typeName(actual) +
+                    ' (' +
+                    show(actual) +
+                    ')',
+            );
         } else if (!isEqual(actual, testCase.expected)) {
-            messages.push(call + " -> expected " + show(testCase.expected) +
-                          ", got " + show(actual));
+            messages.push(
+                call +
+                    ' -> expected ' +
+                    show(testCase.expected) +
+                    ', got ' +
+                    show(actual),
+            );
         } else {
             checksPassed++;
         }
@@ -282,74 +430,84 @@ function testExercise(title, fn, expectedType, cases) {
 
     const label = padRight(title, 26);
     if (notImplemented) {
-        console.log("[TODO] " + label + "not implemented yet (returns undefined)");
+        console.log(
+            '[TODO] ' + label + 'not implemented yet (returns undefined)',
+        );
     } else if (checksPassed === cases.length) {
         exercisesPassed++;
-        console.log("[PASS] " + label + checksPassed + "/" + cases.length + " checks");
+        console.log(
+            '[PASS] ' + label + checksPassed + '/' + cases.length + ' checks',
+        );
     } else {
-        console.log("[FAIL] " + label + checksPassed + "/" + cases.length + " checks");
+        console.log(
+            '[FAIL] ' + label + checksPassed + '/' + cases.length + ' checks',
+        );
         for (const message of messages) {
-            console.log("         " + message);
+            console.log('         ' + message);
         }
     }
 }
 
-console.log("=================== RUNNING TESTS ===================");
+console.log('=================== RUNNING TESTS ===================');
 
-testExercise("1. sumOfEvens", sumOfEvens, "number", [
+testExercise('1. sumOfEvens', sumOfEvens, 'number', [
     { args: [[1, 2, 3, 4, 5, 6]], expected: 12 },
     { args: [[]], expected: 0 },
     { args: [[1, 3, 5]], expected: 0 },
     { args: [[-2, 4, 7]], expected: 2 },
 ]);
 
-testExercise("2. dayName", dayName, "string", [
-    { args: [1], expected: "Monday" },
-    { args: [3], expected: "Wednesday" },
-    { args: [6], expected: "Saturday" },
-    { args: [7], expected: "Sunday" },
-    { args: [0], expected: "Invalid" },
-    { args: [8], expected: "Invalid" },
+testExercise('2. dayName', dayName, 'string', [
+    { args: [1], expected: 'Monday' },
+    { args: [3], expected: 'Wednesday' },
+    { args: [6], expected: 'Saturday' },
+    { args: [7], expected: 'Sunday' },
+    { args: [0], expected: 'Invalid' },
+    { args: [8], expected: 'Invalid' },
 ]);
 
-testExercise("3. countVowels", countVowels, "number", [
-    { args: ["Hello World"], expected: 3 },
-    { args: [""], expected: 0 },
-    { args: ["AEIOU aeiou"], expected: 10 },
-    { args: ["rhythm"], expected: 0 },
+testExercise('3. countVowels', countVowels, 'number', [
+    { args: ['Hello World'], expected: 3 },
+    { args: [''], expected: 0 },
+    { args: ['AEIOU aeiou'], expected: 10 },
+    { args: ['rhythm'], expected: 0 },
 ]);
 
-testExercise("4. fizzBuzz", fizzBuzz, "string", [
-    { args: [5], expected: "1, 2, Fizz, 4, Buzz" },
-    { args: [1], expected: "1" },
-    { args: [0], expected: "" },
-    { args: [15], expected: "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz" },
+testExercise('4. fizzBuzz', fizzBuzz, 'string', [
+    { args: [5], expected: '1, 2, Fizz, 4, Buzz' },
+    { args: [1], expected: '1' },
+    { args: [0], expected: '' },
+    {
+        args: [15],
+        expected:
+            '1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, FizzBuzz',
+    },
 ]);
 
-testExercise("5. isPalindrome", isPalindrome, "boolean", [
-    { args: ["level"], expected: true },
-    { args: ["hello"], expected: false },
-    { args: ["abba"], expected: true },
-    { args: ["abca"], expected: false },
-    { args: ["a"], expected: true },
-    { args: [""], expected: true },
+testExercise('5. isPalindrome', isPalindrome, 'boolean', [
+    { args: ['level'], expected: true },
+    { args: ['hello'], expected: false },
+    { args: ['abba'], expected: true },
+    { args: ['abca'], expected: false },
+    { args: ['a'], expected: true },
+    { args: [''], expected: true },
 ]);
 
-testExercise("6. buildTriangle", buildTriangle, "string", [
-    { args: [3], expected: "*\n**\n***" },
-    { args: [1], expected: "*" },
-    { args: [0], expected: "" },
-    { args: [5], expected: "*\n**\n***\n****\n*****" },
+testExercise('6. buildTriangle', buildTriangle, 'string', [
+    { args: [3], expected: '*\n**\n***' },
+    { args: [1], expected: '*' },
+    { args: [0], expected: '' },
+    { args: [5], expected: '*\n**\n***\n****\n*****' },
 ]);
 
-testExercise("7. countWeekendDays", countWeekendDays, "number", [
+testExercise('7. countWeekendDays', countWeekendDays, 'number', [
     { args: [[1, 6, 7, 3]], expected: 2 },
     { args: [[]], expected: 0 },
     { args: [[6, 6, 6]], expected: 3 },
     { args: [[8, 0, 7]], expected: 1 },
 ]);
 
-testExercise("8. pointsToGrade", pointsToGrade, "number", [
+testExercise('8. pointsToGrade', pointsToGrade, 'number', [
     { args: [100], expected: 1 },
     { args: [90], expected: 1 },
     { args: [89], expected: 2 },
@@ -361,46 +519,88 @@ testExercise("8. pointsToGrade", pointsToGrade, "number", [
     { args: [0], expected: 5 },
 ]);
 
-testExercise("9. gradeReport", gradeReport, "string", [
-    { args: [{ name: "Anna", points: 85 }], expected: "Anna: 2 (Good)" },
-    { args: [{ name: "Ben", points: 95 }], expected: "Ben: 1 (Excellent)" },
-    { args: [{ name: "Cleo", points: 70 }], expected: "Cleo: 3 (Satisfactory)" },
-    { args: [{ name: "Dan", points: 50 }], expected: "Dan: 4 (Sufficient)" },
-    { args: [{ name: "Emil", points: 12 }], expected: "Emil: 5 (Insufficient)" },
+testExercise('9. gradeReport', gradeReport, 'string', [
+    { args: [{ name: 'Anna', points: 85 }], expected: 'Anna: 2 (Good)' },
+    { args: [{ name: 'Ben', points: 95 }], expected: 'Ben: 1 (Excellent)' },
+    {
+        args: [{ name: 'Cleo', points: 70 }],
+        expected: 'Cleo: 3 (Satisfactory)',
+    },
+    { args: [{ name: 'Dan', points: 50 }], expected: 'Dan: 4 (Sufficient)' },
+    {
+        args: [{ name: 'Emil', points: 12 }],
+        expected: 'Emil: 5 (Insufficient)',
+    },
 ]);
 
-testExercise("10. rockPaperScissors", rockPaperScissors, "string", [
-    { args: ["rock", "paper"], expected: "Player 2 wins" },
-    { args: ["rock", "scissors"], expected: "Player 1 wins" },
-    { args: ["paper", "rock"], expected: "Player 1 wins" },
-    { args: ["scissors", "rock"], expected: "Player 2 wins" },
-    { args: ["scissors", "paper"], expected: "Player 1 wins" },
-    { args: ["paper", "paper"], expected: "Draw" },
-    { args: ["rock", "lizard"], expected: "Invalid input" },
-    { args: ["well", "well"], expected: "Invalid input" },
+testExercise('10. rockPaperScissors', rockPaperScissors, 'string', [
+    { args: ['rock', 'paper'], expected: 'Player 2 wins' },
+    { args: ['rock', 'scissors'], expected: 'Player 1 wins' },
+    { args: ['paper', 'rock'], expected: 'Player 1 wins' },
+    { args: ['scissors', 'rock'], expected: 'Player 2 wins' },
+    { args: ['scissors', 'paper'], expected: 'Player 1 wins' },
+    { args: ['paper', 'paper'], expected: 'Draw' },
+    { args: ['rock', 'lizard'], expected: 'Invalid input' },
+    { args: ['well', 'well'], expected: 'Invalid input' },
 ]);
 
-testExercise("11. findOldest", findOldest, "string", [
-    { args: [[{ name: "Tom", age: 31 }, { name: "Eva", age: 45 }, { name: "Max", age: 12 }]], expected: "Eva" },
-    { args: [[{ name: "Lea", age: 50 }, { name: "Kim", age: 50 }]], expected: "Lea" },
-    { args: [[{ name: "Solo", age: 1 }]], expected: "Solo" },
-    { args: [[]], expected: "" },
+testExercise('11. findOldest', findOldest, 'string', [
+    {
+        args: [
+            [
+                { name: 'Tom', age: 31 },
+                { name: 'Eva', age: 45 },
+                { name: 'Max', age: 12 },
+            ],
+        ],
+        expected: 'Eva',
+    },
+    {
+        args: [
+            [
+                { name: 'Lea', age: 50 },
+                { name: 'Kim', age: 50 },
+            ],
+        ],
+        expected: 'Lea',
+    },
+    { args: [[{ name: 'Solo', age: 1 }]], expected: 'Solo' },
+    { args: [[]], expected: '' },
 ]);
 
-testExercise("12. namesAtLeastAge", namesAtLeastAge, "array", [
-    { args: [[{ name: "Tom", age: 31 }, { name: "Eva", age: 12 }, { name: "Max", age: 18 }], 18], expected: ["Tom", "Max"] },
-    { args: [[{ name: "Tom", age: 31 }], 40], expected: [] },
+testExercise('12. namesAtLeastAge', namesAtLeastAge, 'array', [
+    {
+        args: [
+            [
+                { name: 'Tom', age: 31 },
+                { name: 'Eva', age: 12 },
+                { name: 'Max', age: 18 },
+            ],
+            18,
+        ],
+        expected: ['Tom', 'Max'],
+    },
+    { args: [[{ name: 'Tom', age: 31 }], 40], expected: [] },
     { args: [[], 18], expected: [] },
 ]);
 
-testExercise("13. cartTotal", cartTotal, "number", [
-    { args: [[{ item: "Pen", price: 2, quantity: 3 }]], expected: 6 },
-    { args: [[{ item: "Pen", price: 2, quantity: 10 }]], expected: 18 },
-    { args: [[{ item: "Pen", price: 1.5, quantity: 4 }, { item: "Paper", price: 3, quantity: 20 }, { item: "Ink", price: 10, quantity: 1 }]], expected: 70 },
+testExercise('13. cartTotal', cartTotal, 'number', [
+    { args: [[{ item: 'Pen', price: 2, quantity: 3 }]], expected: 6 },
+    { args: [[{ item: 'Pen', price: 2, quantity: 10 }]], expected: 18 },
+    {
+        args: [
+            [
+                { item: 'Pen', price: 1.5, quantity: 4 },
+                { item: 'Paper', price: 3, quantity: 20 },
+                { item: 'Ink', price: 10, quantity: 1 },
+            ],
+        ],
+        expected: 70,
+    },
     { args: [[]], expected: 0 },
 ]);
 
-testExercise("14. isPrime", isPrime, "boolean", [
+testExercise('14. isPrime', isPrime, 'boolean', [
     { args: [7], expected: true },
     { args: [9], expected: false },
     { args: [2], expected: true },
@@ -410,19 +610,25 @@ testExercise("14. isPrime", isPrime, "boolean", [
     { args: [91], expected: false },
 ]);
 
-testExercise("15. primesUpTo", primesUpTo, "array", [
+testExercise('15. primesUpTo', primesUpTo, 'array', [
     { args: [10], expected: [2, 3, 5, 7] },
     { args: [2], expected: [2] },
     { args: [1], expected: [] },
     { args: [30], expected: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29] },
 ]);
 
-testExercise("16. wordStatistics", wordStatistics, "object", [
-    { args: ["the quick brown fox"], expected: { wordCount: 4, longestWord: "quick" } },
-    { args: ["  hello   world "], expected: { wordCount: 2, longestWord: "hello" } },
-    { args: ["hi"], expected: { wordCount: 1, longestWord: "hi" } },
-    { args: [""], expected: { wordCount: 0, longestWord: "" } },
+testExercise('16. wordStatistics', wordStatistics, 'object', [
+    {
+        args: ['the quick brown fox'],
+        expected: { wordCount: 4, longestWord: 'quick' },
+    },
+    {
+        args: ['  hello   world '],
+        expected: { wordCount: 2, longestWord: 'hello' },
+    },
+    { args: ['hi'], expected: { wordCount: 1, longestWord: 'hi' } },
+    { args: [''], expected: { wordCount: 0, longestWord: '' } },
 ]);
 
-console.log("=====================================================");
-console.log("Exercises solved: " + exercisesPassed + " / " + exercisesTotal);
+console.log('=====================================================');
+console.log('Exercises solved: ' + exercisesPassed + ' / ' + exercisesTotal);
