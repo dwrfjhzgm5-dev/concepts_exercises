@@ -283,7 +283,19 @@ function rockPaperScissors(choice1, choice2) {
 // Return the NAME of the oldest person. If two people have the same
 // highest age, return the one that comes first. Empty array gives "".
 // ---------------------------------------------------------------------
-function findOldest(people) {}
+function findOldest(people) {
+    let oldestPerson = '';
+    let oldestPersonAge = 0;
+    for (let i = 0; i < people.length; i++) {
+        const currentPerson = people[i];
+        const { name, age } = currentPerson;
+        if (oldestPersonAge < age) {
+            oldestPersonAge = age;
+            oldestPerson = name;
+        }
+    }
+    return oldestPerson;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 12: namesAtLeastAge
@@ -292,7 +304,17 @@ function findOldest(people) {}
 //   namesAtLeastAge([{ name: "Tom", age: 31 }, { name: "Eva", age: 12 }], 18)
 //     -> ["Tom"]
 // ---------------------------------------------------------------------
-function namesAtLeastAge(people, minAge) {}
+function namesAtLeastAge(people, minAge) {
+    const result = [];
+
+    for (const person of people) {
+        if (person.age >= minAge) {
+            result.push(person.name);
+        }
+    }
+
+    return result;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 13: cartTotal
@@ -301,7 +323,21 @@ function namesAtLeastAge(people, minAge) {}
 // 10 or more, that item gets 10% discount.
 //   cartTotal([{ item: "Pen", price: 2, quantity: 10 }]) -> 18
 // ---------------------------------------------------------------------
-function cartTotal(cart) {}
+function cartTotal(cart) {
+    let total = 0;
+
+    for (const entry of cart) {
+        let cost = entry.price * entry.quantity;
+
+        if (entry.quantity >= 10) {
+            cost = cost * 0.9;
+        }
+
+        total = total + cost;
+    }
+
+    return total;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 14: isPrime
@@ -309,7 +345,22 @@ function cartTotal(cart) {}
 // Numbers smaller than 2 are not prime. Use a while loop.
 //   isPrime(7) -> true,  isPrime(9) -> false
 // ---------------------------------------------------------------------
-function isPrime(n) {}
+function isPrime(n) {
+    if (n < 2) {
+        return false;
+    }
+
+    let divisor = 2;
+
+    while (divisor < n) {
+        if (n % divisor === 0) {
+            return false;
+        }
+        divisor = divisor + 1;
+    }
+
+    return true;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 15: primesUpTo
@@ -317,7 +368,17 @@ function isPrime(n) {}
 // Call your function isPrime() from exercise 14.
 //   primesUpTo(10) -> [2, 3, 5, 7]
 // ---------------------------------------------------------------------
-function primesUpTo(n) {}
+function primesUpTo(n) {
+    const primes = [];
+
+    for (let i = 2; i <= n; i++) {
+        if (isPrime(i)) {
+            primes.push(i);
+        }
+    }
+
+    return primes;
+}
 
 // ---------------------------------------------------------------------
 // Exercise 16: wordStatistics
@@ -329,7 +390,36 @@ function primesUpTo(n) {}
 //   wordStatistics("the quick brown fox")
 //     -> { wordCount: 4, longestWord: "quick" }
 // ---------------------------------------------------------------------
-function wordStatistics(sentence) {}
+function wordStatistics(sentence) {
+    let wordCount = 0;
+    let longestWord = '';
+    let currentWord = '';
+
+    for (let i = 0; i < sentence.length; i++) {
+        const char = sentence[i];
+
+        if (char === ' ') {
+            if (currentWord !== '') {
+                wordCount = wordCount + 1;
+                if (currentWord.length > longestWord.length) {
+                    longestWord = currentWord;
+                }
+                currentWord = '';
+            }
+        } else {
+            currentWord = currentWord + char;
+        }
+    }
+
+    if (currentWord !== '') {
+        wordCount = wordCount + 1;
+        if (currentWord.length > longestWord.length) {
+            longestWord = currentWord;
+        }
+    }
+
+    return { wordCount: wordCount, longestWord: longestWord };
+}
 
 // =====================================================================
 // =====================================================================
